@@ -5,15 +5,20 @@ pipeline{
                     steps{git branch: 'master', url: 'https://github.com/Abhinav501-eng/mavenproject1'}
                 }
                 stage('code compile'){
-                    steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-                    sh 'mvn compile'
-}}
+                    steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
+                    {sh 'mvn compile'}
+                         }
                 }
                 stage('execute unit test case '){
                     steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
-                   {
-                    sh 'mvn test'
-}}
+                   {sh 'mvn test'}
+                         }
+                }
+        
+                stage('code build'){
+                    steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
+                   {sh 'mvn package'}
+                         }
                 }
         
         }
