@@ -28,7 +28,7 @@ pipeline{
                 }}
 
                 stage ('deployment to prod manually'){
-                input ('Do you approve deployement?')
+                input 'Do you approve deployement?';
                    steps{sshagent(credentials: ['deploy-to-tomcat'], ignoreMissing: true) {
                  sh 'scp -o StrictHostkeyChecking=no webapp/target/webapp.war ec2-user@172.31.11.15:/usr/share/tomcat/webapps'
                  }
