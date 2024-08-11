@@ -12,8 +12,12 @@
 			If you see this, the example war-file was correctly deployed! Congrats!
 		</p>
 		<p>
+			Hello......
+		</p>
+		<p>
 			<%= new java.util.Date() %>
 		</p>
+
 		<p>
 			You are from <%= request.getRemoteAddr() %>
 		</p>
