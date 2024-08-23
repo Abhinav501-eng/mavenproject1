@@ -5,28 +5,38 @@ pipeline{
                     steps{git branch: 'master', url: 'https://github.com/Abhinav501-eng/mavenproject1'}
                 }
                 stage('code compile'){
+                    agent { label 'MAVEN'}
                     steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
                     {sh 'mvn compile'}
                          }
                 }
                 stage('execute unit test case '){
+                     agent { label 'MAVEN'}
                     steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
                    {sh 'mvn test'}
                          }
                 }
         
                 stage('code build'){
+                     agent { label 'MAVEN'}
                     steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
                    {sh 'mvn package'}
                          }
                 }
 
                 stage('deploye tomcat server'){
-                    steps{sshagent(credentials: ['15_aug_tom_demo'], ignoreMissing: true) {
-                 sh 'scp -o StrictHostkeyChecking=no webapp/target/webapp.war ec2-user@172.31.39.176:/usr/share/tomcat/webapps/'
+                     agent { label 'MAVEN'}
+                    steps{sshagent(credentials: ['deploy-to-tomcat'], ignoreMissing: true) {
+                 sh 'scp -o StrictHostkeyChecking=no webapp/target/webapp.war ec2-user@172.31.11.15:/usr/share/tomcat/webapps/'
                  }
                 }}
 
+                stage ('deployment to prod manually'){
+                                   steps{sshagent(['deploy-to-tomcat']){
+                 input 'Do you approve deployement?' 
+                 sh 'scp -o StrictHostkeyChecking=no webapp/target/webapp.war ec2-user@172.31.11.15:/usr/share/tomcat/webapps'
+                 }
+                }}
         
         }
 }
