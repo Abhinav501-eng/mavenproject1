@@ -2,6 +2,7 @@ pipeline{
     agent any
         stages{
                 stage('scm checkout'){
+                     agent { label 'MAVEN'}
                     steps{git branch: 'master', url: 'https://github.com/Abhinav501-eng/mavenproject1'}
                 }
                 stage('code compile'){
