@@ -6,10 +6,12 @@ pipeline{
             checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Abhinav501-eng/mavenproject1.git']])
         }}
 
-        stage{
+        stage('code compilation'){
             steps{withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA ', maven: 'MAVEN', mavenSettingsConfig: '', traceability: true) {
-             // some block
-            }}
+    // some block
+}}
         }
+
+        
     }
-}
+    }
