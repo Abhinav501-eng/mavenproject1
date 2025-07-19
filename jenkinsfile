@@ -1,9 +1,9 @@
 pipeline{
     agent any
     stages{
-        stage('Scm checkout')
+        stage('Scm checkout'){
         steps{
             checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Abhinav501-eng/mavenproject1.git']])
-        }
+        }}
     }
 }
