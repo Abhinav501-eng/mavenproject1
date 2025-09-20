@@ -13,14 +13,14 @@ pipeline{
                 }
             }
         }
-        stage('compile the code'){
+        stage('test the code'){
             steps{
                 withMaven(jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', traceability: true) {
                 sh 'mvn test'
                 }
             }
         }
-        stage('compile the code'){
+        stage('build the code'){
             steps{
                 withMaven(jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', traceability: true) {
                 sh 'mvn package'
